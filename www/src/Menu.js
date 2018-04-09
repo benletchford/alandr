@@ -23,11 +23,10 @@ class Menu extends Component {
         <Fab mini exited={this.state.exited}>settings</Fab>
         <Fab mini exited={this.state.exited}>edit</Fab>
         <Fab mini exited={this.state.exited}>done</Fab>
+        <Fab mini exited={this.state.exited}>help</Fab>
       </div>
     )
   }
 }
 
-// <Fab mini exited={false}>favorite</Fab>
-// <Fab mini exited={false}>favorite</Fab>
 export default Menu;
