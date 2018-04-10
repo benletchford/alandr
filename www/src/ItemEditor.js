@@ -51,18 +51,11 @@ class ItemEditor extends Component {
             <DialogHeaderTitle>Link Editor</DialogHeaderTitle>
           </DialogHeader>
           <DialogBody>
-            <table style={{width: 100+'%'}}>
-              <thead>
-                <tr>
-                  <td>Delete</td>
-                  <td>Link Source</td>
-                  <td>Link Name</td>
-                </tr>
-              </thead>
-              <tbody>
-                {items}
-              </tbody>
-            </table>
+            <Grid>
+              <GridCell span="4"><TextField fullwidth value="asd"/></GridCell>
+              <GridCell span="4">2</GridCell>
+              <GridCell span="4">3</GridCell>
+            </Grid>
           </DialogBody>
           <DialogFooter>
               <DialogFooterButton cancel>Cancel</DialogFooterButton>
