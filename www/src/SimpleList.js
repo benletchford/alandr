@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { view } from 'react-easy-state'
 import './SimpleList.css';
 
 class SimpleList extends Component {
@@ -27,4 +28,4 @@ class SimpleListItem extends Component {
   }
 }
 
-export default SimpleList;
+export default view(SimpleList);
