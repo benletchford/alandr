@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import {
   Dialog,
-  DefaultDialogTemplate,
   DialogSurface,
   DialogHeader,
   DialogHeaderTitle,
@@ -10,23 +9,25 @@ import {
   DialogFooterButton,
   DialogBackdrop
 } from 'rmwc/Dialog';
-import { Button } from 'rmwc/Button';
+import { view } from 'react-easy-state'
+
+import store from './Store'
 
 class ItemEditor extends Component {
   render() {
     return (
       <Dialog
-        open={true}
-        onClose={evt => this.setState({standardDialogOpen: false})}
+        open={store.app.editorDialogOpen}
+        onClose={() => store.app.editorDialogOpen = false}
       >
         <DialogSurface>
           <DialogHeader>
-            <DialogHeaderTitle>Dialog Title</DialogHeaderTitle>
+            <DialogHeaderTitle>Link Editor</DialogHeaderTitle>
           </DialogHeader>
           <DialogBody>This is a standard dialog.</DialogBody>
           <DialogFooter>
               <DialogFooterButton cancel>Cancel</DialogFooterButton>
-              <DialogFooterButton accept>Sweet!</DialogFooterButton>
+              <DialogFooterButton accept>Save</DialogFooterButton>
           </DialogFooter>
         </DialogSurface>
         <DialogBackdrop />
@@ -35,4 +36,4 @@ class ItemEditor extends Component {
   }
 }
 
-export default ItemEditor;
+export default view(ItemEditor);

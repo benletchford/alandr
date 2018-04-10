@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Fab } from 'rmwc/Fab';
 import './Menu.css';
 import { view } from 'react-easy-state'
-import alandrStore from './Store'
+import store from './Store'
 
 class Menu extends Component {
   constructor(props) {
@@ -16,8 +16,6 @@ class Menu extends Component {
      this.setState({
        exited: !this.state.exited
      })
-     alandrStore.items.push({href: '#', name: 'abc'})
-     console.log(alandrStore.items)
   }
 
   render() {
@@ -25,7 +23,7 @@ class Menu extends Component {
       <div className="app-fab">
         <Fab exited={false} onClick={this.toggleExited.bind(this)}>add</Fab>
         <Fab mini exited={this.state.exited}>settings</Fab>
-        <Fab mini exited={this.state.exited}>edit</Fab>
+        <Fab mini exited={this.state.exited} onClick={() => store.app.editorDialogOpen = true}>edit</Fab>
         <Fab mini exited={this.state.exited}>done</Fab>
         <Fab mini exited={this.state.exited}>help</Fab>
       </div>

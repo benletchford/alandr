@@ -2,12 +2,14 @@ import React, { Component } from 'react';
 import { view } from 'react-easy-state'
 import './SimpleList.css';
 
+import store from './Store'
+
 class SimpleList extends Component {
   render() {
     var items = [];
-    for (var i=0;i<this.props.items.length;i++) {
+    for (var i=0;i<store.data.items.length;i++) {
         items.push(
-          <li key={i}><SimpleListItem href={this.props.items[i].href} name={this.props.items[i].name} /></li>
+          <li key={i}><SimpleListItem href={store.data.items[i].href} name={store.data.items[i].name} /></li>
         );
     }
 

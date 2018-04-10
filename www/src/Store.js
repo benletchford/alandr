@@ -1,5 +1,10 @@
 import { store } from 'react-easy-state'
 
-const alandrStore = store(window.alandrData.alandr)
+const dataStore = store({
+  data: window.alandrData.alandr,
+  app: {
+    editorDialogOpen: false
+  }
+})
 
-export default alandrStore
+export default dataStore
