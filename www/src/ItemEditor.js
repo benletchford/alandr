@@ -10,11 +10,15 @@ import Toolbar from 'material-ui/Toolbar';
 import IconButton from 'material-ui/IconButton';
 import Typography from 'material-ui/Typography';
 import CloseIcon from '@material-ui/icons/Close';
+import AddIcon from '@material-ui/icons/Add';
 import Slide from 'material-ui/transitions/Slide';
 
 import Table, { TableBody, TableCell, TableHead, TableRow } from 'material-ui/Table';
 
 import Input from 'material-ui/Input';
+
+import Menu, { MenuItem } from 'material-ui/Menu';
+import MoreVertIcon from '@material-ui/icons/MoreVert';
 
 const styles = theme => ({
   appBar: {
@@ -30,6 +34,12 @@ const styles = theme => ({
   input: {
     margin: theme.spacing.unit,
   },
+  itemActionButtonCell: {
+    textAlign: 'center'
+  },
+  itemActionButton: {
+    width: '20px'
+  }
 });
 
 function Transition(props) {
@@ -39,31 +49,18 @@ function Transition(props) {
 class ItemEditor extends Component {
   handleClose = () => {
     store.app.editorDialogOpen = false
-  };
+  }
+
+  handleAdd = () => {
+    store.data.items.push({href: '', name: ''})
+  }
 
   render() {
     const { classes } = this.props;
 
     var items = []
     for(var i=0;i<store.data.items.length;i++) {
-      items.push(
-        <TableRow key={i}>
-          <TableCell>
-            <Input
-              defaultValue={store.data.items[i].name}
-              fullWidth
-              className={classes.input}
-            />
-          </TableCell>
-          <TableCell>
-            <Input
-              defaultValue={store.data.items[i].href}
-              fullWidth
-              className={classes.input}
-            />
-          </TableCell>
-        </TableRow>
-      )
+      items.push(<ItemEditorRow key={i} index={i} classes={classes}/>)
     }
 
     return (
@@ -80,7 +77,7 @@ class ItemEditor extends Component {
                 <CloseIcon />
               </IconButton>
               <Typography variant="title" color="inherit" className={classes.flex}>
-                Settings
+                Edit
               </Typography>
               <Button color="inherit" onClick={this.handleClose}>
                 save
@@ -91,17 +88,90 @@ class ItemEditor extends Component {
             <Table>
               <TableHead>
                 <TableRow>
-                  <TableCell>Link Name</TableCell>
-                  <TableCell>Link Source</TableCell>
+                  <TableCell padding="none"></TableCell>
+
+                  <TableCell>Name</TableCell>
+                  <TableCell>Source</TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
                 {items}
+                <TableRow>
+                  <TableCell padding="none" className={classes.itemActionButtonCell}>
+                    <IconButton aria-label="Add" onClick={this.handleAdd}>
+                       <AddIcon />
+                     </IconButton>
+                  </TableCell>
+                  <TableCell></TableCell>
+                  <TableCell></TableCell>
+                </TableRow>
               </TableBody>
             </Table>
           </div>
         </Dialog>
       </div>
+    )
+  }
+}
+
+class ItemEditorRow extends Component {
+  state = {
+    anchorEl: null,
+  }
+
+  handleClick = event => {
+    this.setState({ anchorEl: event.currentTarget });
+  }
+
+  handleClose = () => {
+    this.setState({ anchorEl: null });
+  }
+
+  handleDelete = () => {
+    store.data.items.splice(this.props.index, 1)
+    this.handleClose()
+  }
+
+  render() {
+    const { anchorEl } = this.state;
+
+    return (
+      <TableRow>
+        <TableCell padding="none" className={this.props.classes.itemActionButtonCell}>
+          <IconButton
+            aria-label="More"
+            aria-owns={anchorEl ? 'long-menu' : null}
+            aria-haspopup="true"
+            onClick={this.handleClick}
+          >
+            <MoreVertIcon />
+          </IconButton>
+          <Menu
+            id="long-menu"
+            anchorEl={anchorEl}
+            open={Boolean(anchorEl)}
+            onClose={this.handleClose}
+          >
+            <MenuItem onClick={this.handleClose}>Disable</MenuItem>
+            <MenuItem onClick={this.handleDelete}>Delete</MenuItem>
+          </Menu>
+        </TableCell>
+
+        <TableCell>
+          <Input
+            defaultValue={store.data.items[this.props.index].name}
+            fullWidth
+            className={this.props.classes.input}
+          />
+        </TableCell>
+        <TableCell>
+          <Input
+            defaultValue={store.data.items[this.props.index].href}
+            fullWidth
+            className={this.props.classes.input}
+          />
+        </TableCell>
+      </TableRow>
     )
   }
 }

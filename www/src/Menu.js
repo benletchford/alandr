@@ -5,6 +5,7 @@ import store from './Store'
 import Button from 'material-ui/Button';
 import Zoom from 'material-ui/transitions/Zoom';
 import Icon from 'material-ui/Icon';
+import Tooltip from 'material-ui/Tooltip';
 
 class Menu extends Component {
   constructor(props) {
@@ -36,18 +37,26 @@ class Menu extends Component {
     return (
       <div className="fab-menu">
         <Button style={style.fabButton} onClick={this.toggleExited.bind(this)} variant="fab" color="primary" aria-label="add"><Icon>add</Icon></Button>
-        <Zoom in={this.state.in}>
-          <Button mini style={Object.assign({}, style.fabButtonMini, {bottom: '86px'})} variant="fab" color="primary" aria-label="add"><Icon>settings</Icon></Button>
-        </Zoom>
-        <Zoom in={this.state.in}>
-          <Button mini style={Object.assign({}, style.fabButtonMini, {bottom: '138px'})} onClick={() => store.app.editorDialogOpen = true} variant="fab" color="primary" aria-label="add"><Icon>edit</Icon></Button>
-        </Zoom>
-        <Zoom in={this.state.in}>
-          <Button mini style={Object.assign({}, style.fabButtonMini, {bottom: '190px'})} variant="fab" color="primary" aria-label="add"><Icon>done</Icon></Button>
-        </Zoom>
-        <Zoom in={this.state.in}>
-          <Button mini style={Object.assign({}, style.fabButtonMini, {bottom: '242px'})} variant="fab" color="primary" aria-label="add"><Icon>help</Icon></Button>
-        </Zoom>
+        <Tooltip title="Settings" placement="left">
+          <Zoom in={this.state.in}>
+            <Button mini style={Object.assign({}, style.fabButtonMini, {bottom: '86px'})} variant="fab" color="primary" aria-label="add"><Icon>settings</Icon></Button>
+          </Zoom>
+        </Tooltip>
+        <Tooltip title="Edit" placement="left">
+          <Zoom in={this.state.in}>
+            <Button mini style={Object.assign({}, style.fabButtonMini, {bottom: '138px'})} onClick={() => store.app.editorDialogOpen = true} variant="fab" color="primary" aria-label="add"><Icon>edit</Icon></Button>
+          </Zoom>
+        </Tooltip>
+        <Tooltip title="Health Check" placement="left">
+          <Zoom in={this.state.in}>
+              <Button mini style={Object.assign({}, style.fabButtonMini, {bottom: '190px'})} variant="fab" color="primary" aria-label="add"><Icon>done</Icon></Button>
+          </Zoom>
+        </Tooltip>
+        <Tooltip title="About" placement="left">
+          <Zoom in={this.state.in}>
+            <Button mini style={Object.assign({}, style.fabButtonMini, {bottom: '242px'})} variant="fab" color="primary" aria-label="add"><Icon>help</Icon></Button>
+          </Zoom>
+        </Tooltip>
       </div>
     )
   }
