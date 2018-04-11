@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { Fab } from 'rmwc/Fab';
 import { view } from 'react-easy-state'
 import store from './Store'
 

@@ -2,12 +2,9 @@ import React, { Component } from 'react';
 import { view } from 'react-easy-state'
 import store from './Store'
 
-import PropTypes from 'prop-types';
 import { withStyles } from 'material-ui/styles';
 import Button from 'material-ui/Button';
 import Dialog from 'material-ui/Dialog';
-import List, { ListItem, ListItemText } from 'material-ui/List';
-import Divider from 'material-ui/Divider';
 import AppBar from 'material-ui/AppBar';
 import Toolbar from 'material-ui/Toolbar';
 import IconButton from 'material-ui/IconButton';
@@ -16,6 +13,8 @@ import CloseIcon from '@material-ui/icons/Close';
 import Slide from 'material-ui/transitions/Slide';
 
 import Table, { TableBody, TableCell, TableHead, TableRow } from 'material-ui/Table';
+
+import Input from 'material-ui/Input';
 
 const styles = theme => ({
   appBar: {
@@ -26,9 +25,11 @@ const styles = theme => ({
   },
   dialogContent: {
     width: '100%',
-    marginTop: theme.spacing.unit * 3,
-    overflowX: 'auto',
-  }
+    overflowX: 'auto'
+  },
+  input: {
+    margin: theme.spacing.unit,
+  },
 });
 
 function Transition(props) {
@@ -42,6 +43,28 @@ class ItemEditor extends Component {
 
   render() {
     const { classes } = this.props;
+
+    var items = []
+    for(var i=0;i<store.data.items.length;i++) {
+      items.push(
+        <TableRow key={i}>
+          <TableCell>
+            <Input
+              defaultValue={store.data.items[i].name}
+              fullWidth
+              className={classes.input}
+            />
+          </TableCell>
+          <TableCell>
+            <Input
+              defaultValue={store.data.items[i].href}
+              fullWidth
+              className={classes.input}
+            />
+          </TableCell>
+        </TableRow>
+      )
+    }
 
     return (
       <div>
@@ -68,21 +91,12 @@ class ItemEditor extends Component {
             <Table>
               <TableHead>
                 <TableRow>
-                  <TableCell>Dessert (100g serving)</TableCell>
-                  <TableCell numeric>Calories</TableCell>
-                  <TableCell numeric>Fat (g)</TableCell>
-                  <TableCell numeric>Carbs (g)</TableCell>
-                  <TableCell numeric>Protein (g)</TableCell>
+                  <TableCell>Link Name</TableCell>
+                  <TableCell>Link Source</TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
-                <TableRow>
-                  <TableCell>Dessert (100g serving)</TableCell>
-                  <TableCell numeric>Calories</TableCell>
-                  <TableCell numeric>Fat (g)</TableCell>
-                  <TableCell numeric>Carbs (g)</TableCell>
-                  <TableCell numeric>Protein (g)</TableCell>
-                </TableRow>
+                {items}
               </TableBody>
             </Table>
           </div>
