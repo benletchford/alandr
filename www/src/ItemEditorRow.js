@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { view } from 'react-easy-state'
-import store from './Store'
 
 import { withStyles } from 'material-ui/styles';
 import IconButton from 'material-ui/IconButton';
