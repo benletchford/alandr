@@ -13,10 +13,10 @@ class App extends Component {
         <SimpleList />
         <Menu />
 
-        <ItemEditor />
       </div>
     );
   }
 }
+// <ItemEditor />
 
 export default view(App);
