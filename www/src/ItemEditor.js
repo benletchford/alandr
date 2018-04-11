@@ -24,6 +24,10 @@ const styles = {
   },
 };
 
+function Transition(props) {
+  return <Slide direction="up" {...props} />;
+}
+
 class ItemEditor extends Component {
   handleClose = () => {
     store.app.editorDialogOpen = false
@@ -31,35 +35,37 @@ class ItemEditor extends Component {
 
   render() {
     return (
-      <Dialog
-        fullScreen
-        open={store.app.editorDialogOpen}
-        onClose={() => store.app.editorDialogOpen = false}
-        transition={(props) => <Slide direction="up" {...props}/>}
-      >
-        <AppBar style={styles.appBar}>
-          <Toolbar>
-            <IconButton color="inherit" onClick={() => store.app.editorDialogOpen = false} aria-label="Close">
-              <CloseIcon />
-            </IconButton>
-            <Typography variant="title" color="inherit" style={styles.flex}>
-              Settings
-            </Typography>
-            <Button color="inherit" onClick={this.handleClose}>
-              save
-            </Button>
-          </Toolbar>
-        </AppBar>
-        <List>
-          <ListItem button>
-            <ListItemText primary="Phone ringtone" secondary="Titania" />
-          </ListItem>
-          <Divider />
-          <ListItem button>
-            <ListItemText primary="Default notification ringtone" secondary="Tethys" />
-          </ListItem>
-        </List>
-      </Dialog>
+      <div>
+        <Dialog
+          fullScreen
+          open={store.app.editorDialogOpen}
+          onClose={this.handleClose}
+          transition={Transition}
+        >
+          <AppBar style={styles.appBar}>
+            <Toolbar>
+              <IconButton color="inherit" onClick={this.handleClose} aria-label="Close">
+                <CloseIcon />
+              </IconButton>
+              <Typography variant="title" color="inherit" style={styles.flex}>
+                Settings
+              </Typography>
+              <Button color="inherit" onClick={this.handleClose}>
+                save
+              </Button>
+            </Toolbar>
+          </AppBar>
+          <List>
+            <ListItem button>
+              <ListItemText primary="Phone ringtone" secondary="Titania" />
+            </ListItem>
+            <Divider />
+            <ListItem button>
+              <ListItemText primary="Default notification ringtone" secondary="Tethys" />
+            </ListItem>
+          </List>
+        </Dialog>
+      </div>
     )
   }
 }
