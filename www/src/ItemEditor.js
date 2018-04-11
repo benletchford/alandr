@@ -42,13 +42,19 @@ class ItemEditor extends Component {
   constructor(props) {
     super(props);
 
+    this.state = {
+      items: []
+    };
+  }
+
+  handleOnEnter = () => {
     var items = store.data.items.slice()
     for(var i=0;i<items.length;i++) {
       items[i].uuid = uuidv1()
     }
-    this.state = {
+    this.setState({
       items: items
-    };
+    })
   }
 
   handleClose = () => {
@@ -59,7 +65,6 @@ class ItemEditor extends Component {
     this.setState({
       items: this.state.items.concat([{href: '', name: '', uuid: uuidv1()}])
     })
-
   }
 
   handleDelete = (i) => {
@@ -85,6 +90,7 @@ class ItemEditor extends Component {
           fullScreen
           open={store.app.editorDialogOpen}
           onClose={this.handleClose}
+          onEnter={this.handleOnEnter}
           transition={Transition}
         >
           <AppBar className={classes.appBar}>
