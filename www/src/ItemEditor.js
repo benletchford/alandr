@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import { view } from 'react-easy-state'
 import store from './Store'
+import ItemEditorRow from './ItemEditorRow'
+
+import * as uuidv1 from 'uuid/v1'
 
 import { withStyles } from 'material-ui/styles';
 import Button from 'material-ui/Button';
@@ -15,11 +18,6 @@ import Slide from 'material-ui/transitions/Slide';
 
 import Table, { TableBody, TableCell, TableHead, TableRow } from 'material-ui/Table';
 
-import Input from 'material-ui/Input';
-
-import Menu, { MenuItem } from 'material-ui/Menu';
-import MoreVertIcon from '@material-ui/icons/MoreVert';
-
 const styles = theme => ({
   appBar: {
     position: 'relative',
@@ -31,15 +29,9 @@ const styles = theme => ({
     width: '100%',
     overflowX: 'auto'
   },
-  input: {
-    margin: theme.spacing.unit,
-  },
   itemActionButtonCell: {
     textAlign: 'center'
   },
-  itemActionButton: {
-    width: '20px'
-  }
 });
 
 function Transition(props) {
@@ -47,20 +39,44 @@ function Transition(props) {
 }
 
 class ItemEditor extends Component {
+  constructor(props) {
+    super(props);
+
+    var items = store.data.items.slice()
+    for(var i=0;i<items.length;i++) {
+      items[i].uuid = uuidv1()
+    }
+    this.state = {
+      items: items
+    };
+  }
+
   handleClose = () => {
     store.app.editorDialogOpen = false
   }
 
   handleAdd = () => {
-    store.data.items.push({href: '', name: ''})
+    this.setState({
+      items: this.state.items.concat([{href: '', name: '', uuid: uuidv1()}])
+    })
+
+  }
+
+  handleDelete = (i) => {
+    var items = this.state.items.slice()
+    items.splice(i, 1)
+
+    this.setState({
+      items: items
+    })
   }
 
   render() {
     const { classes } = this.props;
 
-    var items = []
-    for(var i=0;i<store.data.items.length;i++) {
-      items.push(<ItemEditorRow key={i} index={i} classes={classes}/>)
+    let items = []
+    for(var i=0;i<this.state.items.length;i++) {
+      items.push(<ItemEditorRow key={this.state.items[i].uuid} i={i} item={this.state.items[i]} handleDelete={this.handleDelete} />)
     }
 
     return (
@@ -110,68 +126,6 @@ class ItemEditor extends Component {
           </div>
         </Dialog>
       </div>
-    )
-  }
-}
-
-class ItemEditorRow extends Component {
-  state = {
-    anchorEl: null,
-  }
-
-  handleClick = event => {
-    this.setState({ anchorEl: event.currentTarget });
-  }
-
-  handleClose = () => {
-    this.setState({ anchorEl: null });
-  }
-
-  handleDelete = () => {
-    store.data.items.splice(this.props.index, 1)
-    this.handleClose()
-  }
-
-  render() {
-    const { anchorEl } = this.state;
-
-    return (
-      <TableRow>
-        <TableCell padding="none" className={this.props.classes.itemActionButtonCell}>
-          <IconButton
-            aria-label="More"
-            aria-owns={anchorEl ? 'long-menu' : null}
-            aria-haspopup="true"
-            onClick={this.handleClick}
-          >
-            <MoreVertIcon />
-          </IconButton>
-          <Menu
-            id="long-menu"
-            anchorEl={anchorEl}
-            open={Boolean(anchorEl)}
-            onClose={this.handleClose}
-          >
-            <MenuItem onClick={this.handleClose}>Disable</MenuItem>
-            <MenuItem onClick={this.handleDelete}>Delete</MenuItem>
-          </Menu>
-        </TableCell>
-
-        <TableCell>
-          <Input
-            defaultValue={store.data.items[this.props.index].name}
-            fullWidth
-            className={this.props.classes.input}
-          />
-        </TableCell>
-        <TableCell>
-          <Input
-            defaultValue={store.data.items[this.props.index].href}
-            fullWidth
-            className={this.props.classes.input}
-          />
-        </TableCell>
-      </TableRow>
     )
   }
 }

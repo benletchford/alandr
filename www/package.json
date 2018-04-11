@@ -10,7 +10,8 @@
     "react-dom": "^16.3.1",
     "react-easy-state": "^5.0.0",
     "react-redux": "^5.0.7",
-    "react-scripts": "1.1.4"
+    "react-scripts": "1.1.4",
+    "uuid": "^3.2.1"
   },
   "scripts": {
     "start": "react-scripts start",
