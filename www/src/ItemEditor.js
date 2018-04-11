@@ -1,71 +1,67 @@
 import React, { Component } from 'react';
-import {
-  Dialog,
-  DialogSurface,
-  DialogHeader,
-  DialogHeaderTitle,
-  DialogBody,
-  DialogFooter,
-  DialogFooterButton,
-  DialogBackdrop
-} from 'rmwc/Dialog';
-import { TextField, TextFieldIcon, TextFieldHelperText } from 'rmwc/TextField';
 import { view } from 'react-easy-state'
-import { Grid, GridCell } from 'rmwc/Grid';
-import { Icon } from 'rmwc/Icon';
-import {
-  List,
-  ListItem,
-  ListItemText,
-  ListItemSecondaryText,
-  ListItemGraphic,
-  ListItemMeta,
-  ListDivider
-} from 'rmwc/List';
-import { Checkbox } from 'rmwc/Checkbox';
-
-import './ItemEditor.css';
 import store from './Store'
 
-class ItemEditor extends Component {
-  render() {
-    var items = [];
-    for (var i=0;i<store.data.items.length;i++) {
-        items.push(
-          <tr key={i}>
-            <td><Checkbox></Checkbox></td>
-            <td><TextField fullwidth value={store.data.items[i].href}/></td>
-            <td><TextField fullwidth value={store.data.items[i].name}/></td>
-          </tr>
-        );
-    }
+import PropTypes from 'prop-types';
+import { withStyles } from 'material-ui/styles';
+import Button from 'material-ui/Button';
+import Dialog from 'material-ui/Dialog';
+import List, { ListItem, ListItemText } from 'material-ui/List';
+import Divider from 'material-ui/Divider';
+import AppBar from 'material-ui/AppBar';
+import Toolbar from 'material-ui/Toolbar';
+import IconButton from 'material-ui/IconButton';
+import Typography from 'material-ui/Typography';
+import CloseIcon from '@material-ui/icons/Close';
+import Slide from 'material-ui/transitions/Slide';
 
+const styles = {
+  appBar: {
+    position: 'relative',
+  },
+  flex: {
+    flex: 1,
+  },
+};
+
+class ItemEditor extends Component {
+  handleClose = () => {
+    store.app.editorDialogOpen = false
+  };
+
+  render() {
     return (
       <Dialog
+        fullScreen
         open={store.app.editorDialogOpen}
         onClose={() => store.app.editorDialogOpen = false}
-        className="item-editor"
+        transition={(props) => <Slide direction="up" {...props}/>}
       >
-        <DialogSurface>
-          <DialogHeader>
-            <DialogHeaderTitle>Link Editor</DialogHeaderTitle>
-          </DialogHeader>
-          <DialogBody>
-            <Grid>
-              <GridCell span="4"><TextField fullwidth value="asd"/></GridCell>
-              <GridCell span="4">2</GridCell>
-              <GridCell span="4">3</GridCell>
-            </Grid>
-          </DialogBody>
-          <DialogFooter>
-              <DialogFooterButton cancel>Cancel</DialogFooterButton>
-              <DialogFooterButton accept>Save</DialogFooterButton>
-          </DialogFooter>
-        </DialogSurface>
-        <DialogBackdrop />
+        <AppBar style={styles.appBar}>
+          <Toolbar>
+            <IconButton color="inherit" onClick={() => store.app.editorDialogOpen = false} aria-label="Close">
+              <CloseIcon />
+            </IconButton>
+            <Typography variant="title" color="inherit" style={styles.flex}>
+              Settings
+            </Typography>
+            <Button color="inherit" onClick={this.handleClose}>
+              save
+            </Button>
+          </Toolbar>
+        </AppBar>
+        <List>
+          <ListItem button>
+            <ListItemText primary="Phone ringtone" secondary="Titania" />
+          </ListItem>
+          <Divider />
+          <ListItem button>
+            <ListItemText primary="Default notification ringtone" secondary="Tethys" />
+          </ListItem>
+        </List>
       </Dialog>
     )
   }
 }
 
-export default view(ItemEditor);
+export default withStyles(styles)(view(ItemEditor));

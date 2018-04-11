@@ -41,7 +41,7 @@ class Menu extends Component {
           <Button mini style={Object.assign({}, style.fabButtonMini, {bottom: '86px'})} variant="fab" color="primary" aria-label="add"><Icon>settings</Icon></Button>
         </Zoom>
         <Zoom in={this.state.in}>
-          <Button mini style={Object.assign({}, style.fabButtonMini, {bottom: '138px'})} variant="fab" color="primary" aria-label="add"><Icon>edit</Icon></Button>
+          <Button mini style={Object.assign({}, style.fabButtonMini, {bottom: '138px'})} onClick={() => store.app.editorDialogOpen = true} variant="fab" color="primary" aria-label="add"><Icon>edit</Icon></Button>
         </Zoom>
         <Zoom in={this.state.in}>
           <Button mini style={Object.assign({}, style.fabButtonMini, {bottom: '190px'})} variant="fab" color="primary" aria-label="add"><Icon>done</Icon></Button>
