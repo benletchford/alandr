@@ -15,14 +15,21 @@ import Typography from 'material-ui/Typography';
 import CloseIcon from '@material-ui/icons/Close';
 import Slide from 'material-ui/transitions/Slide';
 
-const styles = {
+import Table, { TableBody, TableCell, TableHead, TableRow } from 'material-ui/Table';
+
+const styles = theme => ({
   appBar: {
     position: 'relative',
   },
   flex: {
     flex: 1,
   },
-};
+  dialogContent: {
+    width: '100%',
+    marginTop: theme.spacing.unit * 3,
+    overflowX: 'auto',
+  }
+});
 
 function Transition(props) {
   return <Slide direction="up" {...props} />;
@@ -34,6 +41,8 @@ class ItemEditor extends Component {
   };
 
   render() {
+    const { classes } = this.props;
+
     return (
       <div>
         <Dialog
@@ -42,12 +51,12 @@ class ItemEditor extends Component {
           onClose={this.handleClose}
           transition={Transition}
         >
-          <AppBar style={styles.appBar}>
+          <AppBar className={classes.appBar}>
             <Toolbar>
               <IconButton color="inherit" onClick={this.handleClose} aria-label="Close">
                 <CloseIcon />
               </IconButton>
-              <Typography variant="title" color="inherit" style={styles.flex}>
+              <Typography variant="title" color="inherit" className={classes.flex}>
                 Settings
               </Typography>
               <Button color="inherit" onClick={this.handleClose}>
@@ -55,15 +64,28 @@ class ItemEditor extends Component {
               </Button>
             </Toolbar>
           </AppBar>
-          <List>
-            <ListItem button>
-              <ListItemText primary="Phone ringtone" secondary="Titania" />
-            </ListItem>
-            <Divider />
-            <ListItem button>
-              <ListItemText primary="Default notification ringtone" secondary="Tethys" />
-            </ListItem>
-          </List>
+            <div className={classes.dialogContent}>
+            <Table>
+              <TableHead>
+                <TableRow>
+                  <TableCell>Dessert (100g serving)</TableCell>
+                  <TableCell numeric>Calories</TableCell>
+                  <TableCell numeric>Fat (g)</TableCell>
+                  <TableCell numeric>Carbs (g)</TableCell>
+                  <TableCell numeric>Protein (g)</TableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                <TableRow>
+                  <TableCell>Dessert (100g serving)</TableCell>
+                  <TableCell numeric>Calories</TableCell>
+                  <TableCell numeric>Fat (g)</TableCell>
+                  <TableCell numeric>Carbs (g)</TableCell>
+                  <TableCell numeric>Protein (g)</TableCell>
+                </TableRow>
+              </TableBody>
+            </Table>
+          </div>
         </Dialog>
       </div>
     )
