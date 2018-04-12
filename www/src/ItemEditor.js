@@ -61,6 +61,18 @@ class ItemEditor extends Component {
     store.app.editorDialogOpen = false
   }
 
+  handleSave = () => {    
+    fetch('http://localhost:8080/api/data/items', {
+      mode: 'no-cors',
+      method: 'POST',
+      headers: {'Content-Type':'application/javascript'},
+      body: JSON.stringify({
+        items: this.state.items
+      })
+    })
+    this.handleClose()
+  }
+
   handleAdd = () => {
     this.setState({
       items: this.state.items.concat([{href: '', name: '', uuid: uuidv1()}])
@@ -101,7 +113,7 @@ class ItemEditor extends Component {
               <Typography variant="title" color="inherit" className={classes.flex}>
                 Edit
               </Typography>
-              <Button color="inherit" onClick={this.handleClose}>
+              <Button color="inherit" onClick={this.handleSave}>
                 save
               </Button>
             </Toolbar>

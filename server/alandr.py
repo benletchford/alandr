@@ -12,6 +12,11 @@ def read_data(file_key='alandr'):
             return yaml.load(stream)[file_key]
 
 
+def write_data(new_data, file_key='alandr'):
+    with open('server/data/%s.yml' % file_key, 'w') as outfile:
+        yaml.dump(new_data, outfile, default_flow_style=False)
+
+
 @route('/')
 @route('/index.html')
 @view('www/build/index')
@@ -25,18 +30,15 @@ def css(filepath):
     return static_file(filepath, root='www/build')
 
 
-@route('/api/data', method='POST')
-def api_data():
+@route('/api/data/items', method='POST')
+def api_data_items():
     form_settings = json.load(request.body)
 
-    new_settings = {}
-    for from_setting in form_settings:
-        new_settings[from_setting['name']] = from_setting['value']
-
-    settings.update(new_settings)
-
-    with open('data/settings.yml', 'w') as outfile:
-        yaml.dump({'settings': settings}, outfile, default_flow_style=False)
+    items = json.load(request.body)['items']
+    data['items'] = items
+    write_data({
+        'alandr': data
+    })
 
 
 if __name__ == '__main__':
