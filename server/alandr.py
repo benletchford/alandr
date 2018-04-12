@@ -31,7 +31,7 @@ def css(filepath):
 
 
 @route('/api/data/items', method='POST')
-def api_data_items():
+def api_data_items_post():
     form_settings = json.load(request.body)
 
     items = json.load(request.body)['items']

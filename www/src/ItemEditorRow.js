@@ -68,6 +68,7 @@ class ItemEditorRow extends Component {
 
         <TableCell>
           <Input
+            onChange={(e) => this.props.item.name = e.target.value}
             defaultValue={this.props.item.name}
             fullWidth
             className={classes.input}
@@ -75,6 +76,7 @@ class ItemEditorRow extends Component {
         </TableCell>
         <TableCell>
           <Input
+            onChange={(e) => this.props.item.href = e.target.value}
             defaultValue={this.props.item.href}
             fullWidth
             className={classes.input}
