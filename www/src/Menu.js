@@ -37,7 +37,8 @@ class Menu extends Component {
     const miniFabs = [
       {
         toolTipTitle: 'Settings',
-        icon: 'settings'
+        icon: 'settings',
+        onClick: () => store.app.settingsDialogOpen = true
       },
       {
         toolTipTitle: 'Edit',
@@ -50,7 +51,8 @@ class Menu extends Component {
       // },
       {
         toolTipTitle: 'About',
-        icon: 'help'
+        icon: 'help',
+        onClick: () => store.app.aboutDialogOpen = true
       }
     ]
 

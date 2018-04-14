@@ -5,6 +5,8 @@ import { view } from 'react-easy-state'
 import Menu from './Menu';
 import SimpleList from './SimpleList';
 import ItemEditor from './ItemEditor'
+import SettingsEditor from './SettingsEditor'
+import About from './About'
 
 class App extends Component {
   render() {
@@ -14,6 +16,8 @@ class App extends Component {
         <Menu />
 
         <ItemEditor />
+        <SettingsEditor />
+        <About />
       </div>
     );
   }
