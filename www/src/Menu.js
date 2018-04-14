@@ -44,10 +44,10 @@ class Menu extends Component {
         icon: 'edit',
         onClick: () => store.app.editorDialogOpen = true
       },
-      {
-        toolTipTitle: 'Health Check',
-        icon: 'done'
-      },
+      // {
+      //   toolTipTitle: 'Health Check',
+      //   icon: 'done'
+      // },
       {
         toolTipTitle: 'About',
         icon: 'help'
