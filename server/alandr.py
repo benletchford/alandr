@@ -21,7 +21,9 @@ def write_data(new_data, file_key='alandr'):
 @route('/index.html')
 @view('www/build/index')
 def index():
-    return dict(data=data)
+    return dict(data=data, json_data=json.dumps({
+        'alandr': data
+    }))
 
 
 # Static Routes

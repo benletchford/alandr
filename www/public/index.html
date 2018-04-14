@@ -6,28 +6,7 @@
 
     <title>{{ data['settings']['site-name'] }}</title>
     <script>
-      window.alandrData = {
-        "alandr": {
-          "settings": {
-            "color_accent": "purple",
-            "color_primary": "indigo",
-            "layout-mode": "plain",
-            "link-mode": "tab",
-            "maintenance-mode": true,
-            "site-name": "microserver"
-          },
-          "items": [
-            {
-              "name": "Google",
-              "href": "https://www.google.com.au/"
-            },
-            {
-              "name": "Facebook",
-              "href": "https://www.facebook.com/"
-            }
-          ]
-        }
-      };
+      window.alandrData = {{ !json_data }}
     </script>
 
     <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500" rel="stylesheet" />
