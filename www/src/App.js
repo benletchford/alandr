@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import './App.css';
 import { view } from 'react-easy-state'
 
 import Menu from './Menu';

@@ -57,7 +57,6 @@ class ItemEditorRow extends Component {
             open={Boolean(anchorEl)}
             onClose={this.handleClose}
           >
-            <MenuItem onClick={this.handleClose}>Disable</MenuItem>
             <MenuItem onClick={() => {
                 this.props.handleDelete(this.props.i)
                 this.handleClose()

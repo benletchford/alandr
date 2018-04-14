@@ -52,29 +52,6 @@ class About extends Component {
     store.app.aboutDialogOpen = false
   }
 
-  // handleSave = () => {
-  //   // Remove all properties except for the ones we care about.
-  //   var newItems = []
-  //   this.state.items.forEach((item) => {
-  //     newItems.push({
-  //       name: item.name,
-  //       href: item.href
-  //     })
-  //   })
-  //
-  //   fetch('http://localhost:8080/api/data/items', {
-  //     mode: 'no-cors',
-  //     method: 'POST',
-  //     headers: {'Content-Type':'application/javascript'},
-  //     body: JSON.stringify({
-  //       items: newItems
-  //     })
-  //   }).then(() => {
-  //     store.data.items = newItems.slice()
-  //   })
-  //   this.handleClose()
-  // }
-
   render() {
     const { classes } = this.props;
 
