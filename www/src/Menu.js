@@ -65,8 +65,6 @@ class Menu extends Component {
       )
     }
 
-    console.log(miniFabButtons)
-
     return (
       <div className="fab-menu">
         <Button style={style.fabButton} onClick={this.toggleExited.bind(this)} variant="fab" color="primary" aria-label="add"><Icon>add</Icon></Button>
