@@ -114,7 +114,6 @@ class SettingsEditor extends Component {
         settingKey: 'maintenance-mode',
         options: [
           'on',
-          'off'
         ]
       },
     ];
