@@ -15,8 +15,6 @@ const dataStore = store({
 dataStore.app.notify = (message) => {
   dataStore.app.notifyOpen = true
   dataStore.app.notifyMessage = message
-
-  console.log(dataStore.app.notifyOpen)
 }
 
 export default dataStore
