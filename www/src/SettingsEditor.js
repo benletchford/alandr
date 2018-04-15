@@ -72,17 +72,22 @@ class SettingsEditor extends Component {
   }
 
   handleSave = () => {
-    fetch('http://localhost:8080/api/data/settings', {
-      mode: 'no-cors',
+    fetch('api/data/settings', {
       method: 'POST',
       headers: {'Content-Type':'application/javascript'},
       body: JSON.stringify({
         settings: this.state.settings
       })
-    }).then(() => {
-      store.data.settings = Object.assign({}, this.state.settings)
-
-      if(document.title !== store.data.settings['site-name']) document.title = store.data.settings['site-name']
+    }).then((response) => {
+      if(response.ok) {
+        store.data.settings = Object.assign({}, this.state.settings)
+        if(document.title !== store.data.settings['site-name']) document.title = store.data.settings['site-name']
+        store.app.notify('Settings saved successfully')
+      } else {
+        throw new Error('Network response was not ok.')
+      }
+    }).catch((error) => {
+      store.app.notify('Something went wrong: ' + error.message)
     })
 
     this.handleClose()

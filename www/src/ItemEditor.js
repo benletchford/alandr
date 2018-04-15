@@ -71,15 +71,21 @@ class ItemEditor extends Component {
       })
     })
 
-    fetch('http://localhost:8080/api/data/items', {
-      mode: 'no-cors',
+    fetch('api/data/items', {
       method: 'POST',
       headers: {'Content-Type':'application/javascript'},
       body: JSON.stringify({
         items: newItems
       })
-    }).then(() => {
-      store.data.items = newItems.slice()
+    }).then((response) => {
+      if(response.ok) {
+        store.data.items = newItems.slice()
+        store.app.notify('Items saved successfully')
+      } else {
+        throw new Error('Network response was not ok.')
+      }
+    }).catch((error) => {
+      store.app.notify('Something went wrong: ' + error.message)
     })
     this.handleClose()
   }

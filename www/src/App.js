@@ -6,6 +6,7 @@ import SimpleList from './SimpleList';
 import ItemEditor from './ItemEditor'
 import SettingsEditor from './SettingsEditor'
 import About from './About'
+import NotificationBar from './NotificationBar'
 
 class App extends Component {
   render() {
@@ -17,6 +18,8 @@ class App extends Component {
         <ItemEditor />
         <SettingsEditor />
         <About />
+
+        <NotificationBar />
       </div>
     );
   }
