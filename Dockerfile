@@ -7,4 +7,4 @@ COPY www/build www/build
 
 RUN pip install --no-cache-dir -r server/requirements.txt
 
-CMD [ "python", "./server/alandr.py" ]
+CMD [ "python", "./server/alandr.py", "--data-directory=/data", "--host=0.0.0.0", "--port=80" ]

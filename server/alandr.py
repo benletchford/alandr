@@ -11,7 +11,7 @@ class Alandr(Bottle):
         super(Alandr, self).__init__()
 
         self.default_data_file = '%s/%s.default.yml' % \
-            (data_directory, Alandr.DATA_FILE_NAME)
+            ('server/data', Alandr.DATA_FILE_NAME)
         self.data_file = '%s/%s.yml' % \
             (data_directory, Alandr.DATA_FILE_NAME)
 
