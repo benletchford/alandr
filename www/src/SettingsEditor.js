@@ -81,6 +81,8 @@ class SettingsEditor extends Component {
       })
     }).then(() => {
       store.data.settings = Object.assign({}, this.state.settings)
+
+      if(document.title !== store.data.settings['site-name']) document.title = store.data.settings['site-name']
     })
 
     this.handleClose()
