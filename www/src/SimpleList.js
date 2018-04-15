@@ -16,7 +16,9 @@ class SimpleList extends Component {
     var items = [];
     for (var i=0;i<store.data.items.length;i++) {
         items.push(
-          <li key={i}><SimpleListItem href={store.data.items[i].href} name={store.data.items[i].name} /></li>
+          <li key={i + store.data.settings['link-mode']}>
+            <SimpleListItem href={store.data.items[i].href} name={store.data.items[i].name}/>
+          </li>
         );
     }
 
@@ -32,7 +34,7 @@ class SimpleListItem extends Component {
   render() {
 
     return (
-      <a href={this.props.href}>{this.props.name}</a>
+      <a href={this.props.href} target={store.data.settings['link-mode'] === 'tab' ? '_blank' : null}>{this.props.name}</a>
     )
   }
 }
