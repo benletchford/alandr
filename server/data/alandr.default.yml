@@ -3,11 +3,9 @@ alandr:
   version: 0.1.0
 
   settings:
-    color_accent: purple
-    color_primary: indigo
     layout-mode: plain
     link-mode: tab
-    maintenance-mode: on
+    maintenance-mode: 'on'
     site-name: microserver
 
   items:

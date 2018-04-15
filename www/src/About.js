@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { view } from 'react-easy-state'
 import store from './Store'
-import ItemEditorRow from './ItemEditorRow'
 
 import { withStyles } from 'material-ui/styles';
 import Button from 'material-ui/Button';
@@ -11,15 +10,6 @@ import Dialog, {
   DialogContentText,
   DialogTitle,
 } from 'material-ui/Dialog';
-import AppBar from 'material-ui/AppBar';
-import Toolbar from 'material-ui/Toolbar';
-import IconButton from 'material-ui/IconButton';
-import Typography from 'material-ui/Typography';
-import CloseIcon from '@material-ui/icons/Close';
-import AddIcon from '@material-ui/icons/Add';
-import Slide from 'material-ui/transitions/Slide';
-
-import Table, { TableBody, TableCell, TableHead, TableRow } from 'material-ui/Table';
 
 const styles = theme => ({
   appBar: {
@@ -37,10 +27,6 @@ const styles = theme => ({
   },
 });
 
-function Transition(props) {
-  return <Slide direction="up" {...props} />;
-}
-
 class About extends Component {
   constructor(props) {
     super(props);
@@ -53,8 +39,6 @@ class About extends Component {
   }
 
   render() {
-    const { classes } = this.props;
-
     return (
       <div>
         <Dialog
@@ -67,6 +51,9 @@ class About extends Component {
           <DialogContent>
             <DialogContentText id="alert-dialog-description">
               <a href="https://github.com/benletchford/alandr">App</a> by <a href="https://github.com/benletchford">Ben L</a>
+              <br />
+              <br />
+              Version: {store.data.version}
             </DialogContentText>
           </DialogContent>
           <DialogActions>

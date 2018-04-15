@@ -1,11 +1,18 @@
 import React, { Component } from 'react';
 import { view } from 'react-easy-state'
-import './SimpleList.css';
 
 import store from './Store'
 
 class SimpleList extends Component {
   render() {
+    const styles = {
+      ul: {
+        listStyleType: 'none',
+        padding: '0',
+        margin: '0'
+      }
+    }
+
     var items = [];
     for (var i=0;i<store.data.items.length;i++) {
         items.push(
@@ -14,8 +21,8 @@ class SimpleList extends Component {
     }
 
     return (
-      <div className="simple-list">
-        <ul>{items}</ul>
+      <div>
+        <ul style={styles.ul}>{items}</ul>
       </div>
     )
   }

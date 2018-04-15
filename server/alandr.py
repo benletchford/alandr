@@ -82,11 +82,9 @@ if __name__ == '__main__':
         return static_file(filepath, root='www/build')
 
     # API
-    @route('/api/data/items', method='POST')
-    def api_data_items_post():
-        items = json.load(request.body)['items']
-
-        alandr.data['alandr']['items'] = items
+    @route('/api/data/<endpoint>', method='POST')
+    def api_data_items_post(endpoint):
+        alandr.data['alandr'][endpoint] = json.load(request.body)[endpoint]
         alandr.write_data()
 
     run(

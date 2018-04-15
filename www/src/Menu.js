@@ -59,7 +59,7 @@ class Menu extends Component {
     const miniFabButtons = []
     for(var i=0;i<miniFabs.length;i++) {
       miniFabButtons.push(
-        <Tooltip title={miniFabs[i].toolTipTitle} placement="left">
+        <Tooltip key={i} title={miniFabs[i].toolTipTitle} placement="left">
           <Zoom in={this.state.in}>
             <Button mini style={Object.assign({}, style.fabButtonMini, {bottom: 86 + (52 * i) + 'px'})} onClick={miniFabs[i].onClick} variant="fab" color="primary" aria-label={miniFabs[i].toolTipTitle}><Icon>{miniFabs[i].icon}</Icon></Button>
           </Zoom>
