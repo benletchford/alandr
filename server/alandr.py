@@ -1,50 +1,97 @@
-from bottle import route, run, view, request, static_file, get
+from bottle import Bottle, route, run, view, request, static_file, get
 import yaml
 import json
 import argparse
 
 
-def read_data(file_key='alandr'):
-    try:
-        with open('server/data/%s.yml' % file_key, 'r') as stream:
-            return yaml.load(stream)[file_key]
-    except FileNotFoundError:
-        with open('server/data/%s.default.yml' % file_key, 'r') as stream:
-            return yaml.load(stream)[file_key]
+class Alandr(Bottle):
+    DATA_FILE_NAME = 'alandr'
 
+    def __init__(self, data_directory):
+        super(Alandr, self).__init__()
 
-def write_data(new_data, file_key='alandr'):
-    with open('server/data/%s.yml' % file_key, 'w') as outfile:
-        yaml.dump(new_data, outfile, default_flow_style=False)
+        self.default_data_file = '%s/%s.default.yml' % \
+            (data_directory, Alandr.DATA_FILE_NAME)
+        self.data_file = '%s/%s.yml' % \
+            (data_directory, Alandr.DATA_FILE_NAME)
 
+        self.data = self.read_data()
 
-@route('/')
-@route('/index.html')
-@view('www/build/index')
-def index():
-    return dict(data=data, json_data=json.dumps({
-        'alandr': data
-    }))
+    def read_data(self):
+        try:
+            with open(self.data_file, 'r') as stream:
+                return yaml.load(stream)
 
+        except FileNotFoundError:
+            with open(self.default_data_file, 'r') as stream:
 
-# Static Routes
-@get('/<filepath:re:.*\.(css|js)>')
-def css(filepath):
-    return static_file(filepath, root='www/build')
+                return yaml.load(stream)
 
-
-@route('/api/data/items', method='POST')
-def api_data_items_post():
-    form_settings = json.load(request.body)
-
-    items = json.load(request.body)['items']
-    data['items'] = items
-    write_data({
-        'alandr': data
-    })
+    def write_data(self):
+        with open(self.data_file, 'w') as outfile:
+            yaml.dump(self.data, outfile, default_flow_style=False)
 
 
 if __name__ == '__main__':
-    data = read_data()
+    parser = argparse.ArgumentParser()
+    parser.add_argument(
+        '-d',
+        '--data-directory',
+        default='server/data',
+        help='Data directory path'
+    )
+    parser.add_argument(
+        '-H',
+        '--host',
+        default='localhost',
+        help='Host'
+    )
+    parser.add_argument(
+        '-p',
+        '--port',
+        type=int,
+        default=80,
+        help='Port'
+    )
+    parser.add_argument(
+        '-D',
+        '--debug',
+        action='store_true',
+        help='Debug'
+    )
+    parser.add_argument(
+        '-R',
+        '--reloader',
+        action='store_true',
+        help='Reloader'
+    )
+    args = parser.parse_args()
 
-    run(host='localhost', port=8080, reloader=True, debug=True)
+    alandr = Alandr(data_directory=args.data_directory)
+
+    # Main page
+    @route('/')
+    @route('/index.html')
+    @view('www/build/index')
+    def index():
+        return dict(data=alandr.data, json_data=json.dumps(alandr.data))
+
+    # Static files
+    @get('/<filepath:re:.*\\.(css|js)>')
+    def css(filepath):
+        return static_file(filepath, root='www/build')
+
+    # API
+    @route('/api/data/items', method='POST')
+    def api_data_items_post():
+        items = json.load(request.body)['items']
+
+        alandr.data['alandr']['items'] = items
+        alandr.write_data()
+
+    run(
+        host=args.host,
+        port=args.port,
+        reloader=args.reloader,
+        debug=args.debug
+    )
