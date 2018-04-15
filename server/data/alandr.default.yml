@@ -1,5 +1,7 @@
 # Don't modify this!
 alandr:
+  version: 0.1.0
+
   settings:
     color_accent: purple
     color_primary: indigo
