@@ -77,7 +77,7 @@ if __name__ == '__main__':
         return dict(data=alandr.data, json_data=json.dumps(alandr.data))
 
     # Static files
-    @get('/<filepath:re:.*\\.(css|js)>')
+    @get('/<filepath:re:.*\\.(css|js|svg|woff2|woff|eot|ttf)>')
     def css(filepath):
         return static_file(filepath, root='www/build')
 
