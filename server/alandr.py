@@ -20,16 +20,16 @@ class Alandr(Bottle):
     def read_data(self):
         try:
             with open(self.data_file, 'r') as stream:
-                return yaml.load(stream)
+                return yaml.safe_load(stream)
 
         except IOError:
             with open(self.default_data_file, 'r') as stream:
 
-                return yaml.load(stream)
+                return yaml.safe_load(stream)
 
     def write_data(self):
         with open(self.data_file, 'w') as outfile:
-            yaml.dump(self.data, outfile, default_flow_style=False)
+            yaml.safe_dump(self.data, outfile, default_flow_style=False)
 
 
 if __name__ == '__main__':
