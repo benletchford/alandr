@@ -12,8 +12,12 @@ alandr is a landing page app that oragnizes all your self hosted services in a s
 
 ## Docker Setup (recommended)
 
+[Docker hub link](https://hub.docker.com/r/benletchford/alandr/).
+
+Get running quick in daemon mode:
+
 ```
-$ docker create --name=alandr -v /data/alandr:/data -p 80:80 benletchford/alandr
+docker run -itd --restart=always -v /data:/data -p 80:80 --name alandr benletchford/alandr:latest
 ```
 
 ## Build Instructions

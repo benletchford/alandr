@@ -6,11 +6,11 @@ alandr:
     layout-mode: plain
     link-mode: tab
     maintenance-mode: 'on'
-    site-name: microserver
+    site-name: alandr
 
   items:
-    - name: Google
+    - name: Example Site A
       href: https://www.google.com.au/
 
-    - name: Facebook
-      href: https://www.facebook.com/
+    - name: Example Site B
+      href: https://www.reddit.com/
