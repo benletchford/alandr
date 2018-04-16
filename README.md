@@ -4,24 +4,24 @@
 
 ## Build Instructions
 
+### Manual Build
+
 Build the frontend app.
 ```
 $ cd alandr/www
 $ yarn build
 ```
 
-Setping up the server (not required for building the docker image).
+Setup the `bottle` server.
 ```
 $ cd alandr/server
 $ pip install -r requirements.txt
 ```
 
-Build the docker image.
+### Docker Build
+
+Build and run the docker image.
 ```
 $ sudo docker build -t alandr .
-```
-
-Then you should be able to run it.
-```
-sudo docker run -it --rm -v /data:/data -p 80:80 --name alandr alandr
+$ sudo docker run -it --rm -v /data:/data -p 80:80 --name alandr alandr
 ```
