@@ -22,7 +22,7 @@ class Alandr(Bottle):
             with open(self.data_file, 'r') as stream:
                 return yaml.load(stream)
 
-        except FileNotFoundError:
+        except IOError:
             with open(self.default_data_file, 'r') as stream:
 
                 return yaml.load(stream)
