@@ -88,6 +88,7 @@ if __name__ == '__main__':
         alandr.write_data()
 
     run(
+        server='paste',
         host=args.host,
         port=args.port,
         reloader=args.reloader,
