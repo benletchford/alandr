@@ -8,6 +8,8 @@
   </tr>
 </table>
 
+[DEPRECATED] please use [simple-docker-lander](https://github.com/benletchford/simple-docker-lander) instead.
+
 alandr is a landing page app that oragnizes all your self hosted services in a simple, clean and efficient manner.
 
 ## Docker Setup (recommended)
